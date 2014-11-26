@@ -16,7 +16,7 @@ module.exports.adapters = {
 
   // If you leave the adapter config unspecified 
   // in a model definition, 'default' will be used.
-  'default': 'disk',
+  'default': 'mysql',
 
   // Persistent adapter for DEVELOPMENT ONLY
   // (data is preserved when the server shuts down)
@@ -26,14 +26,15 @@ module.exports.adapters = {
 
   // MySQL is the world's most popular relational database.
   // Learn more: http://en.wikipedia.org/wiki/MySQL
-  myLocalMySQLDatabase: {
+  mysql: {
 
-    module: 'sails-mysql',
-    host: 'YOUR_MYSQL_SERVER_HOSTNAME_OR_IP_ADDRESS',
-    user: 'YOUR_MYSQL_USER',
-    // Psst.. You can put your password in config/local.js instead
-    // so you don't inadvertently push it up if you're using version control
-    password: 'YOUR_MYSQL_PASSWORD', 
-    database: 'YOUR_MYSQL_DB'
-  }
+      module: 'sails-mysql',
+      host: process.env.DB_HOST ? process.env.DB_HOST : '127.0.0.1',
+      port: 3306,
+      user: process.env.DB_USER ? process.env.DB_USER : 'root',
+      // Psst.. You can put your password in config/local.js instead
+      // so you don't inadvertently push it up if you're using version control
+      password: process.env.DB_PASSWORD ? process.env.DB_PASSWORD : '', 
+      database: process.env.DB_DATABASE ? process.env.DB_DATABASE : 'sails'
+    }
 };
